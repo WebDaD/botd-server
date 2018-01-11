@@ -1,0 +1,52 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "http://timo/",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$id": "/properties/id",
+      "type": "string",
+      "title": "The Id Schema",
+      "description": "The ID used on the RFID_Card. Type is UUID.",
+      "default": "",
+      "examples": [
+        "ef5e5247-9cce-4de9-acc9-0d17b3850f94"
+      ]
+    },
+    "source": {
+      "$id": "/properties/source",
+      "type": "string",
+      "title": "The Source Schema",
+      "description": "The Source of the Audio.",
+      "default": "",
+      "examples": [
+        "local", "youtube", "spotify"
+      ]
+    },
+    "link": {
+      "$id": "/properties/link",
+      "type": "string",
+      "title": "The Link Schema",
+      "description": "The Final Link to the Audio File.",
+      "default": "",
+      "examples": [
+        "/var/files/test.mp3"
+      ]
+    },
+    "comment": {
+      "$id": "/properties/comment",
+      "type": "string",
+      "title": "The comment Schema",
+      "description": "Some Comment to Help identify the entry",
+      "default": "",
+      "examples": [
+        "My First mp3"
+      ]
+    }
+  },
+  "required": [
+    "source",
+    "link"
+  ]
+}

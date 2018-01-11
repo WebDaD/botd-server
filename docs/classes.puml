@@ -1,0 +1,14 @@
+@startuml
+class database {
+  - Array<entry> entries
+  - String file
+  - uuidv4 uuid
+  + {method} void list(callback: function)
+  + {method} void sources(callback: function)
+  + {method} void get(String: id, callback: function)
+  + {method} void add(entry: entry, callback: function)
+  + {method} void update(String: id, entry: entry, callback: function)
+  + {method} void delete(String: id, callback: function)
+  - {method} void saveFile(callback: function)
+}
+@enduml

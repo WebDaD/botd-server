@@ -1,0 +1,7 @@
+{
+  "port": 12345,
+  "blessingsJSON": "./database.json",
+  "calendarJSON": {
+    "2018":""
+  }
+}

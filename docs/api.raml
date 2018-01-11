@@ -1,0 +1,74 @@
+#%RAML 1.0
+title: Timo-Data
+version: 1
+mediaType:  application/json
+baseUri: http://{server}:{port}
+baseUriParameters:
+  server:
+    description: The Server Running this
+    example: 10.14.210.114
+    required: true
+    default: 10.14.210.114
+  port:
+    description: The Server Port
+    example: 7878
+    required: true
+    default: 7878
+protocols: [ HTTP ]
+types:
+  - Entry:  !include entry.schema.json
+/:
+  displayName: Entries
+  description: Get a List of Entries
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Array<Entry>
+            example: |
+              [
+                {
+                  "id":"ef5e5247-9cce-4de9-acc9-0d17b3850f94",
+                  "source":"local",
+                  "link":"/var/files/test.mp3"
+                },
+                {
+                  "id":"ef5e5247-9cce-4de9-acc9-0d17b3850f78",
+                  "source":"youtube",
+                  "link":"http://alink"
+                },
+                {
+                  "id":"ef5e5247-9cce-4de9-acc9-0d17b3850f21",
+                  "source":"local",
+                  "link":"/var/files/test4.mp3"
+                }
+              ]
+  post:
+    body:
+      application/json:
+        type: Entry
+    responses:
+      201:
+        body:
+          application/json:
+            type: Entry
+  /{entryID}:
+    displayName: Entry
+    description: A Single Entry Object
+    uriParameters:
+      entryID:
+        displayName: Entry ID
+        type: string
+    put:
+      body:
+        application/json:
+          type: Entry
+      responses:
+        200:
+          body:
+            application/json:
+              type: Entry
+    delete:
+      responses:
+        200:

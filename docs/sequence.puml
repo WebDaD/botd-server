@@ -1,0 +1,78 @@
+@startuml
+actor User
+participant App
+participant Database
+database Memory
+collections FS
+autonumber
+
+activate App
+App -> Database: new
+activate Database
+Database -> FS: loadFile
+activate FS
+FS -> Database: JSON
+deactivate FS
+Database -> Memory: save JSON
+activate Memory
+Database -> App: Started
+
+User -> App: List Entries
+App -> Database: list()
+Database -> Memory: get
+Memory -> Database: Array<Entry>
+Database -> App: Array<Entry>
+App -> User: json(Array<Entry>)
+
+== List Sources ==
+User -> App: List Sources
+App -> Database: sources()
+Database -> Memory: get
+Memory -> Database: Array<Entry>
+Database -> Database: Filter Array
+Database -> App: Array<Entry>
+App -> User: json(Array<Entry>)
+
+== Add Entry ==
+User -> App: Add Entry (entry)
+App -> Database: addEntry()
+Database -> Memory: add to Array
+Memory -> Database: Array<Entry>
+Database -> FS: save File
+activate FS
+FS -> Database: OK
+deactivate FS
+Database -> App: Entry
+App -> User: json(Entry)
+
+== Update Entry ==
+User -> App: Update Entry (id, entry)
+App -> Database: updateEntry()
+Database -> Memory: get Array
+Memory -> Database: Array<Entry>
+Database -> Database: Find in Array
+Database -> Memory: update Array
+Memory -> Database: Array<Entry>
+Database -> FS: save File
+activate FS
+FS -> Database: OK
+deactivate FS
+Database -> App: Entry
+App -> User: json(Entry)
+
+== Delete Entry ==
+User -> App: Delete Entry (id)
+App -> Database: deleteEntry()
+Database -> Memory: get Array
+Memory -> Database: Array<Entry>
+Database -> Database: Find in Array
+Database -> Memory: delete from Array
+Memory -> Database: Array<Entry>
+
+Database -> FS: save File
+activate FS
+FS -> Database: OK
+deactivate FS
+Database -> App: true
+App -> User: true
+@enduml
